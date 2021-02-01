@@ -1,0 +1,16 @@
+{
+  "name": "stripe-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jason <bilafish@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "netlify-lambda build functions"
+  },
+  "dependencies": {
+    "stripe": "^8.132.0"
+  },
+  "devDependencies": {
+    "netlify-lambda": "^2.0.3"
+  }
+}
