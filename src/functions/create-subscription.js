@@ -47,6 +47,7 @@ exports.handler = async (event) => {
   const subscription = await stripe.subscriptions.create({
     customer: customerId,
     items: [{ price: priceId }],
+    trial_period_days: 7,
     expand: ["latest_invoice.payment_intent"],
   });
 
