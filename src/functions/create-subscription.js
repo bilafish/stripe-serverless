@@ -1,6 +1,21 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
+  // Handle Preflight request
+  if (event.httpMethod === "OPTIONS") {
+    // To enable CORS
+    const headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "POST",
+    };
+    return {
+      statusCode: 200,
+      headers,
+      body: "This is a preflight request!",
+    };
+  }
+
   const { paymentMethodId, customerId, priceId } = JSON.parse(event.body);
   let paymentMethod;
   try {
@@ -11,12 +26,6 @@ exports.handler = async (event) => {
     console.log(error);
     return {
       statusCode: 200,
-      headers: {
-        /* Required for CORS support to work */
-        "Access-Control-Allow-Origin": "*",
-        /* Required for cookies, authorization headers with HTTPS */
-        "Access-Control-Allow-Credentials": true,
-      },
       body: JSON.stringify({
         error: {
           message: error.message,
@@ -43,12 +52,6 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    headers: {
-      /* Required for CORS support to work */
-      "Access-Control-Allow-Origin": "*",
-      /* Required for cookies, authorization headers with HTTPS */
-      "Access-Control-Allow-Credentials": true,
-    },
     body: JSON.stringify(subscription),
   };
 };
