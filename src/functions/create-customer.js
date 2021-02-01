@@ -3,13 +3,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 exports.handler = async (event) => {
   const { email } = JSON.parse(event.body);
   // Handle Preflight request
+  // To enable CORS
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST",
+  };
   if (event.httpMethod === "OPTIONS") {
-    // To enable CORS
-    const headers = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "POST",
-    };
     return {
       statusCode: 200,
       headers,
@@ -24,12 +24,14 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ customer }),
     };
   } catch (error) {
     console.log(error);
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ error }),
     };
   }
