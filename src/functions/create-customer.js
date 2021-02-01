@@ -1,9 +1,10 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
+  const { email } = JSON.parse(event.body);
   try {
     const customer = await stripe.customers.create({
-      email: req.body.email,
+      email: email,
     });
 
     return {
