@@ -5,7 +5,7 @@
   "author": "Jason <bilafish@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "netlify-lambda build functions"
+    "build": "netlify-lambda build src/functions"
   },
   "dependencies": {
     "stripe": "^8.132.0"
