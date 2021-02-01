@@ -1,0 +1,3 @@
+[build]
+    command = "cd functions && yarn install && cd .."
+    functions = "functions"
