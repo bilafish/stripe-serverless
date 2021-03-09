@@ -23,6 +23,7 @@ exports.handler = async (event) => {
     customer: customerId,
     items: [{ price: priceId }],
     collection_method: "send_invoice",
+    days_until_due: 1,
     expand: ["latest_invoice.payment_intent"],
   });
 
